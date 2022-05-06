@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+
+import AllBooks from "./components/AllBooks";
 
 function App() {
+  const [books, setBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("nora");
+  // const [forReadingList, setForReadingList] = useState(false);
+  let updatedBooks;
+  async function previewAllBooks() {
+    const response = await fetch(
+      `https://openlibrary.org/search.json?q=${searchTerm}`
+    );
+    const bs = await response.json();
+    setBooks(bs.docs);
+    console.log(books);
+  }
+
+  updatedBooks = books.map((book) => {
+    return { ...book, forReadingList: false };
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    previewAllBooks();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <AllBooks books={updatedBooks} />
     </div>
   );
 }
