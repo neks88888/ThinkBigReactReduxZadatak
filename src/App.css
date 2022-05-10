@@ -1,8 +1,8 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -36,7 +36,57 @@
     transform: rotate(360deg);
   }
 }
-
-.done {
+*/ .done {
   text-decoration: line-through;
+} 
+
+
+body {
+  
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.inputNotes {
+background-color: transparent;
+border: none;
+border-bottom: 2px solid #fff;
+margin-bottom: 4px;
+outline:none;
+color:#fff
+
+}
+
+ol {
+ 
+  margin: 0 auto;
+  text-align: left;
+}
+
+.form-check {
+  
+  display: block;
+  padding-left: 0;
+}
+.form-group {
+  margin-bottom: 0;
+}
+/* .custom-div {
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+} */
+
+
+
+body div.ab {
+ 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.fourth {
+  max-width: 40%;
+  margin: 0 auto;
 }

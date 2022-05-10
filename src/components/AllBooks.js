@@ -1,43 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Book from "./Book";
-import AddNewBook from "./AddNewBook";
 
-function AllBooks({ books }) {
-  const [sBooks, setSBooks] = useState([]);
-  const [newBooks, setNewBooks] = useState([]);
+import { useSelector } from "react-redux";
 
-  const addNewBook = (newBook) => {
-    setNewBooks((prevState) => [...prevState, newBook]);
-  };
-
-  const selectAsRead = (id) => {
-    const selectedBook = newBooks.concat(books).find((book) => book.key === id);
-    console.log(selectedBook);
-
-    setSBooks((prevState) => [...prevState, selectedBook]);
-    // selectedBook.forReadingList = !forReadingList;
-  };
-  const sBook = newBooks
-    .concat(books)
+function AllBooks() {
+  const s = useSelector((state) => state.value);
+  const allBooks = s.allBooks
     .slice(0, 5)
-    .map((singleBook) => {
-      return (
-        <Book
-          key={singleBook.key}
-          data={singleBook}
-          selectAsRead={selectAsRead}
-        />
-      );
-    });
-  return (
-    <React.Fragment>
-      <AddNewBook addNewBook={addNewBook} />
-      <h1>Sve knjige (lista za citanje)</h1> <br />
-      {sBook} <h1>Procitano</h1>
-      {sBooks.map((book) => (
-        <Book key={book.key} data={book} />
-      ))}
-    </React.Fragment>
+    .map((book) => <Book key={book.key} data={book} apis={true} />);
+
+  return allBooks.length === 0 ? (
+    <h3 className="font-weight-light">Lista "sve knjige" je trenutno prazna</h3>
+  ) : (
+    <div className="ab">{allBooks}</div>
   );
 }
 
